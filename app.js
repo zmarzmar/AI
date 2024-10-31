@@ -80,7 +80,8 @@ app.post('/weather/today', async (req, res) => {
         const items = result.response.body[0].items[0].item; // 예보 항목 리스트
         const weatherData = items[0];
         const forecastTime = weatherData.announceTime[0]; // 발표 시각
-        const temperature = weatherData.ta[0] || '데이터 없음'; // 예상 기온
+       // 첫 번째 항목에서 기온 데이터가 없으면 두 번째 항목에서 가져오는 방식
+        const temperature = (weatherData.ta && weatherData.ta[0]) ? weatherData.ta[0] : (items[1] && items[1].ta && items[1].ta[0]) ? items[1].ta[0] : '데이터 없음';
         const rainProbability = weatherData.rnSt[0]; // 강수 확률
         const weatherCondition = weatherData.wf[0]; // 날씨 정보
   
