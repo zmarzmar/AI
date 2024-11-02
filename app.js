@@ -122,10 +122,8 @@ app.post('/weather/today', async (req, res) => {
             const items = result.response.body[0].items[0].item;
             const weatherData = items[0];
             const forecastTime = weatherData.announceTime[0];
-            
             // 날짜 형식 변환 (YYYY년 MM월 DD일)
             const formattedDate = `${forecastTime.substring(0, 4)}년 ${forecastTime.substring(4, 6)}월 ${forecastTime.substring(6, 8)}일`;
-
             const temperature = (weatherData.ta && weatherData.ta[0]) ? weatherData.ta[0] : (items[1] && items[1].ta && items[1].ta[0]) ? items[1].ta[0] : '데이터 없음';
             const rainProbability = weatherData.rnSt[0];
             const weatherCondition = weatherData.wf[0];
